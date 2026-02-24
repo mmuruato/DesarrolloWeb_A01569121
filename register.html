@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Crear cuenta</h1>
+    <p>Registra tus datos para poder iniciar sesión</p>
+
+    <!-- Al darle "Registrarse" vuelve al login -->
+    <form action="index.html">
+      <label>
+        Nombre
+        <input type="text" placeholder="tu nombre" required />
+      </label>
+
+      <label>
+        Correo
+        <input type="email" placeholder="tu correo" required />
+      </label>
+
+      <label>
+        Contraseña
+        <input type="password" placeholder="crea una contraseña" required minlength="6" />
+      </label>
+
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <a class="back" href="index.html">← Volver a iniciar sesión</a>
+  </div>
+</body>
+</html>
