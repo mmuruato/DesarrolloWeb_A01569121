@@ -11,23 +11,55 @@
     <h1>Iniciar sesión</h1>
     <p>Accede con tu correo y contraseña</p>
 
-    <form action="dashboard.html">
+    <form id="loginForm">
       <label>
         Correo
-        <input type="email" placeholder="correo" required />
+        <input type="email" id="correo" placeholder="correo" required />
       </label>
 
       <label>
         Contraseña
-        <input type="password" placeholder="contraseña" required />
+        <input type="password" id="contrasena" placeholder="contraseña" required />
       </label>
+
+      <p id="mensaje" style="color:red; display:none;"></p>
 
       <button type="submit">Entrar</button>
     </form>
 
     <div class="divider"><span>o</span></div>
-
     <a class="btn-outline" href="register.html">Registrarme</a>
   </div>
+
+  <script>
+    const SUPABASE_URL = 'https://wuuoyaikzqoudzzcuybq.supabase.co'
+    const SUPABASE_KEY = 'sb_publishable_C5ku1lEJS94CZFdHY1clzA_TIwGg4l4'
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const correo     = document.getElementById('correo').value.trim()
+      const contrasena = document.getElementById('contrasena').value
+      const mensaje    = document.getElementById('mensaje')
+
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/usuarios?correo=eq.${encodeURIComponent(correo)}&contrase%C3%B1a=eq.${encodeURIComponent(contrasena)}`,
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        }
+      )
+      const data = await res.json()
+
+      if (data.length > 0) {
+        localStorage.setItem('usuario', JSON.stringify(data[0]))
+        window.location.href = 'dashboard.html'
+      } else {
+        mensaje.textContent = 'Correo o contraseña incorrectos.'
+        mensaje.style.display = 'block'
+      }
+    })
+  </script>
 </body>
 </html>
